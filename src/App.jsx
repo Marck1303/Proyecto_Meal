@@ -1,14 +1,14 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useState } from "react";
+import reactLogo from "./assets/react.svg";
+import viteLogo from "/vite.svg";
+import Details from "./views/Details";
 
 function App() {
-
   return (
     <>
-      <div>Hola</div>
+      <Details/>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
