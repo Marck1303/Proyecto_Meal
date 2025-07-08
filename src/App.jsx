@@ -1,13 +1,15 @@
-import { Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
-import RecetaDetalle from "./pages/RecetaDetalle";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home.jsx";
+import Detail from "./pages/Detail.jsx";
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/receta/:id" element={<RecetaDetalle />} />
-    </Routes>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/detail/:id" element={<Detail />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
