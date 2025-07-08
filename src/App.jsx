@@ -7,12 +7,6 @@ import Details from "./views/Details";
 function App() {
   return (
     <>
-      <div>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla
-        consequuntur delectus ratione. Voluptate eius autem saepe culpa, soluta
-        adipisci vero eaque illo optio suscipit provident delectus ut, amet odit
-        ad.
-      </div>
       <Details/>
     </>
   );
