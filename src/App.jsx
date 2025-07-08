@@ -1,14 +1,13 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import Details from "./views/Details";
-
+import { Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import RecetaDetalle from "./pages/RecetaDetalle";
 
 function App() {
   return (
-    <>
-      <Details/>
-    </>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/receta/:id" element={<RecetaDetalle />} />
+    </Routes>
   );
 }
 
