@@ -1,15 +1,18 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import axios from "axios";
+import { useParams, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import useDetallePorId from "../hook/useDetallePorId";
+import IngredienteItem from "../components/recetas/IngredienteItem";
+import ImagenReceta from "../components/recetas/ImagenReceta";
+import VideoModal from "../components/recetas/VideoModal";
 
 const RecetaDetalle = () => {
   const { id } = useParams();
-  const [receta, setReceta] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+  const { receta, loading } = useDetallePorId(id);
   const [ingredienteActivo, setIngredienteActivo] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [mostrarVideo, setMostrarVideo] = useState(false);
 
-  // Detectar si es móvil
   useEffect(() => {
     const detectarDispositivo = () => {
       setIsMobile(window.innerWidth <= 768);
@@ -19,28 +22,9 @@ const RecetaDetalle = () => {
     return () => window.removeEventListener("resize", detectarDispositivo);
   }, []);
 
-  // Obtener receta desde la API
-  useEffect(() => {
-    const obtenerReceta = async () => {
-      try {
-        const { data } = await axios.get(
-          `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`
-        );
-        setReceta(data.meals[0]);
-      } catch (error) {
-        console.error("Error al obtener la receta:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    obtenerReceta();
-  }, [id]);
-
   if (loading) return <p className="text-center mt-10">Cargando receta...</p>;
   if (!receta) return <p className="text-center mt-10 text-red-600">Receta no encontrada</p>;
 
-  // Extraer ingredientes
   const obtenerIngredientes = () => {
     const ingredientes = [];
     for (let i = 1; i <= 20; i++) {
@@ -55,90 +39,72 @@ const RecetaDetalle = () => {
 
   const ingredientes = obtenerIngredientes();
 
-  // Manejar cierre del popup al tocar fuera
-  const cerrarPopup = (e) => {
-    if (e.target.id === "popup-fondo") {
-      setIngredienteActivo(null);
-    }
-  };
-
   return (
     <>
-      {/* Popup para móvil */}
-      {isMobile && ingredienteActivo && (
-        <div
-          id="popup-fondo"
-          onClick={cerrarPopup}
-          className="fixed inset-0 bg-black bg-opacity-60 z-50 flex items-center justify-center p-4"
+      {/* Botones superiores */}
+      <div className="p-4 flex gap-4 items-center">
+        <button
+          onClick={() => navigate(-1)}
+          className="hover:scale-110 transition-transform"
+          title="Volver"
         >
-          <div className="bg-white rounded shadow-lg p-4 w-64 max-w-full">
-            <div className="text-right mb-2">
-              <button
-                onClick={() => setIngredienteActivo(null)}
-                className="text-red-600 font-bold text-sm"
-              >
-                ❌ Cerrar
-              </button>
+          <svg className="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+        <button
+          onClick={() => navigate("/")}
+          className="hover:scale-110 transition-transform"
+          title="Inicio"
+        >
+          <svg className="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M3 12l9-9 9 9M4 10v10h4v-6h8v6h4V10" />
+          </svg>
+        </button>
+      </div>
+
+      {/* Modal de video */}
+      {mostrarVideo && (
+        <VideoModal
+          videoId={receta.strYoutube?.split("v=")[1]}
+          onClose={() => setMostrarVideo(false)}
+        />
+      )}
+
+      <div className="container mx-auto px-4 md:px-32 py-6 flex flex-col gap-8">
+        {/* Ingredientes + Imagen */}
+        <div className="flex flex-col md:flex-row gap-8 items-start">
+          <div className="md:max-w-sm w-full">
+            <h1 className="text-3xl font-extrabold mb-4 text-gray-900">{receta.strMeal}</h1>
+            <h2 className="text-2xl font-semibold mb-4 text-gray-800">Ingredientes</h2>
+            <div className="grid grid-cols-1 gap-3">
+              {ingredientes.map(({ nombre, medida }, index) => (
+                <IngredienteItem
+                  key={index}
+                  nombre={nombre}
+                  medida={medida}
+                  isMobile={isMobile}
+                  ingredienteActivo={ingredienteActivo}
+                  setIngredienteActivo={setIngredienteActivo}
+                />
+              ))}
             </div>
-            <img
-              src={`https://www.themealdb.com/images/ingredients/${ingredienteActivo}.png`}
-              alt={ingredienteActivo}
-              className="w-full h-auto"
+          </div>
+
+          <div className="flex-1 relative flex flex-col justify-start">
+            <ImagenReceta
+              src={receta.strMealThumb}
+              alt={receta.strMeal}
+              mostrarBotonVideo={!!receta.strYoutube}
+              onVideoClick={() => setMostrarVideo(true)}
             />
           </div>
         </div>
-      )}
 
-      <div className="container mx-auto p-6 flex flex-col md:flex-row gap-8">
-        {/* Lado izquierdo */}
-        <div className="md:w-1/2">
-          <h1 className="text-3xl font-bold mb-4">{receta.strMeal}</h1>
-
-          <h2 className="text-xl font-semibold mb-2">Ingredientes:</h2>
-          <ul className="list-disc list-inside mb-4 space-y-2">
-            {ingredientes.map(({ nombre, medida }, index) => (
-              <li
-                key={index}
-                className="relative group cursor-pointer text-blue-800 hover:underline"
-                onMouseEnter={() => !isMobile && setIngredienteActivo(nombre)}
-                onMouseLeave={() => !isMobile && setIngredienteActivo(null)}
-                onClick={() => isMobile && setIngredienteActivo(nombre)}
-              >
-                {nombre} - {medida}
-
-                {/* Imagen flotante (solo PC) */}
-                {!isMobile && ingredienteActivo === nombre && (
-                  <div className="absolute z-10 bg-white p-2 rounded shadow-lg border top-0 left-48 w-40">
-                    <img
-                      src={`https://www.themealdb.com/images/ingredients/${nombre}.png`}
-                      alt={nombre}
-                      className="w-full h-auto"
-                    />
-                  </div>
-                )}
-              </li>
-            ))}
-          </ul>
-
-          <h2 className="text-xl font-semibold mt-6 mb-2">Preparación:</h2>
-          <p className="text-gray-700 whitespace-pre-line">{receta.strInstructions}</p>
-        </div>
-
-        {/* Lado derecho */}
-        <div className="md:w-1/2 flex flex-col items-center">
-          <img
-            src={receta.strMealThumb}
-            alt={receta.strMeal}
-            className="rounded-lg shadow-lg mb-4 w-full"
-          />
-          {receta.strYoutube && (
-            <iframe
-              className="w-full aspect-video"
-              src={`https://www.youtube.com/embed/${receta.strYoutube.split("v=")[1]}`}
-              title="Video de preparación"
-              allowFullScreen
-            />
-          )}
+        {/* Preparación */}
+        <div className="w-full text-center">
+          <h2 className="text-2xl font-semibold mt-6 mb-2 text-gray-800">Preparación</h2>
+          <p className="text-gray-700 whitespace-pre-line max-w-3xl mx-auto">{receta.strInstructions}</p>
         </div>
       </div>
     </>
