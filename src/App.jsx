@@ -35,6 +35,7 @@ function App() {
         <Route path="/category/:categoryName" element={<CategoryMeals />} />
       </Routes>
     </BrowserRouter>
+    <>
   );
 }
 
