@@ -17,7 +17,7 @@ function App() {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col justify-between border-b-3">
+    <div className="min-h-screen flex flex-col justify-between p-10 border-b-3">
       <SearchBar buscarFood={buscarFood} />
 
       {/* {

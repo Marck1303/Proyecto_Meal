@@ -17,13 +17,14 @@ function App() {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col justify-between border-b-3">
+    <div className="min-h-screen flex flex-col justify-between p-10 border-b-3 border-[#fbc81d]">
       <SearchBar buscarFood={buscarFood} />
 
-      {/* {
+      {
         //Este es un ejemplo de las Cards, para ver el funcionamiento del buscador.
 
-        <div className="w-[90%] h-[40%] m-10 grid grid-cols-3 gap-15">
+        {
+          /* <div className="w-[90%] h-[40%] m-10 grid grid-cols-3 gap-15">
           {resultados && resultados.length > 0 ? (
             resultados.map((meal) => (
               <div key={meal.idMeal} className="border p-4 rounded shadow">
@@ -40,8 +41,9 @@ function App() {
               No se encontraron resultados.
             </p>
           )}
-        </div>
-      } */}
+        </div> */
+        }
+      }
       <FooterFood />
     </div>
   );
