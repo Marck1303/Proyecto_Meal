@@ -1,9 +1,12 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import React from "react";
 import { useEffect, useState } from "react";
 import FooterFood from "./components/FooterFood";
 import SearchBar from "./components/SearchBar";
+import Home from './pages/Home.jsx';
+import Detail from './pages/Detail.jsx';
+import CategoryMeals from './pages/CategoryMeals.jsx';
 import fetchMealData from "./hook/data";
-import LandingP from "./components/LandingP";
 
 function App() {
   const [resultados, setResultados] = useState([]);
@@ -23,32 +26,17 @@ function App() {
     <div className="bg-[#ffa300] min-h-screen flex flex-col justify-between border-b-3">
       <LandingP />
       <SearchBar buscarFood={buscarFood} />
-
-      {
-        //Este es un ejemplo de las Cards, para ver el funcionamiento del buscador.
-
-        <div className="w-[90%] h-[40%] m-10 grid grid-cols-3 gap-15">
-          {resultados && resultados.length > 0 ? (
-            resultados.map((meal) => (
-              <div key={meal.idMeal} className="border p-4 rounded shadow">
-                <img
-                  src={meal.strMealThumb}
-                  alt={meal.strMeal}
-                  className="rounded mb-2"
-                />
-                <h2 className="font-bold">{meal.strMeal}</h2>
-              </div>
-            ))
-          ) : (
-            <p className="text-center col-span-3">
-              No se encontraron resultados.
-            </p>
-          )}
-        </div>
-      }
       <FooterFood />
     </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/detail/:id" element={<Detail />} />
+        <Route path="/category/:categoryName" element={<CategoryMeals />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
 export default App;
+

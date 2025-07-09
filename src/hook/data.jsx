@@ -1,8 +1,9 @@
-import axios from "axios";
+import axios from 'axios';
 
-const API_URL = "https://www.themealdb.com/api/json/v1/1";
+const API_URL = 'https://www.themealdb.com/api/json/v1/1';
 
-const fetchMealData = async (endpoint, param = "") => {
+const fetchMealData = async (endpoint, param = '') => {
+
   try {
     const response = await axios.get(`${API_URL}/${endpoint}?${param}`);
     return response.data.meals || response.data.categories || [];
@@ -12,3 +13,4 @@ const fetchMealData = async (endpoint, param = "") => {
   }
 };
 export default fetchMealData;
+
