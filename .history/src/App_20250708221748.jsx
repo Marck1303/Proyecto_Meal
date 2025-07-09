@@ -1,4 +1,3 @@
-import React from "react";
 import { useEffect, useState } from "react";
 import FooterFood from "./components/FooterFood";
 import SearchBar from "./components/SearchBar";
@@ -10,7 +9,6 @@ function App() {
 
   const buscarFood = async (BusquedaUsuario) => {
     const data = await fetchMealData("search.php", `s=${BusquedaUsuario}`);
-
     setResultados(data);
     console.log(data);
   };

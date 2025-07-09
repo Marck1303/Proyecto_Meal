@@ -6,6 +6,13 @@ import fetchMealData from "./hook/data";
 import LandingP from "./components/LandingP";
 
 function App() {
+  <Router>
+    <Routes>
+      <Route path="/" element={<LandingP />} />
+      <Route path="/home" element={<HomePage />} />
+    </Routes>
+  </Router>;
+
   const [resultados, setResultados] = useState([]);
 
   const buscarFood = async (BusquedaUsuario) => {

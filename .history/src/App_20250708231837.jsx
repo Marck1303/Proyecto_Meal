@@ -4,6 +4,7 @@ import FooterFood from "./components/FooterFood";
 import SearchBar from "./components/SearchBar";
 import fetchMealData from "./hook/data";
 import LandingP from "./components/LandingP";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
   const [resultados, setResultados] = useState([]);

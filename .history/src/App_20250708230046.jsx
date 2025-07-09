@@ -24,7 +24,7 @@ function App() {
       <LandingP />
       <SearchBar buscarFood={buscarFood} />
 
-      {
+      {/* {
         //Este es un ejemplo de las Cards, para ver el funcionamiento del buscador.
 
         <div className="w-[90%] h-[40%] m-10 grid grid-cols-3 gap-15">
@@ -45,7 +45,7 @@ function App() {
             </p>
           )}
         </div>
-      }
+      } */}
       <FooterFood />
     </div>
   );

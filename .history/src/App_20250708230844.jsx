@@ -4,8 +4,16 @@ import FooterFood from "./components/FooterFood";
 import SearchBar from "./components/SearchBar";
 import fetchMealData from "./hook/data";
 import LandingP from "./components/LandingP";
+import react-router-dom "src/components/LandingP.jsx" from "@vitejs/plugin-react-swc";
 
 function App() {
+  <Router>
+    <Routes>
+      <Route path="/" element={<LandingP />} />
+      <Route path="/home" element={<HomePage />} />
+    </Routes>
+  </Router>;
+
   const [resultados, setResultados] = useState([]);
 
   const buscarFood = async (BusquedaUsuario) => {

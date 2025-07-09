@@ -1,4 +1,3 @@
-import React from "react";
 import { useEffect, useState } from "react";
 import FooterFood from "./components/FooterFood";
 import SearchBar from "./components/SearchBar";
@@ -10,7 +9,6 @@ function App() {
 
   const buscarFood = async (BusquedaUsuario) => {
     const data = await fetchMealData("search.php", `s=${BusquedaUsuario}`);
-
     setResultados(data);
     console.log(data);
   };
@@ -20,11 +18,11 @@ function App() {
   }, []);
 
   return (
-    <div className="bg-[#ffa300] min-h-screen flex flex-col justify-between border-b-3">
-      <LandingP />
+    <div className="min-h-screen flex flex-col justify-between border-b-3">
+      <LandingP className="bg-[#fbc81d]" />
       <SearchBar buscarFood={buscarFood} />
 
-      {
+      {/* {
         //Este es un ejemplo de las Cards, para ver el funcionamiento del buscador.
 
         <div className="w-[90%] h-[40%] m-10 grid grid-cols-3 gap-15">
@@ -45,7 +43,7 @@ function App() {
             </p>
           )}
         </div>
-      }
+      } */}
       <FooterFood />
     </div>
   );

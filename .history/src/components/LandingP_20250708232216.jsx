@@ -20,7 +20,7 @@ export default function LandingP() {
         <h2 className="text-3xl font-bold text-white mb-6">ClickFood</h2>
 
         <button
-          onClick={() => navigate("/home")}
+          /* onClick={() => navigate("/home")} */
           className="border border-white text-white py-3 px-8 rounded-full hover:bg-white hover:text-black transition font-semibold"
         >
           ORDER NOW
