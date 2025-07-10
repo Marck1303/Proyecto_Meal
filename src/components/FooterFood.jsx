@@ -27,7 +27,7 @@ export default function FooterFood() {
   return (
     <footer
       className="bg-cover bg-center text-black py-8 text-center border-t-4 border-black"
-      style={{ backgroundImage: "url('/footerAmarillo.jpg')" }}
+      style={{ backgroundImage: "url('/footerAmarillo2.jpg')" }}
     >
       <h3 className="font-extrabold text-4xl mb-6">DESIGNFRONT</h3>
 
@@ -42,7 +42,7 @@ export default function FooterFood() {
             <img
               src={miembro.img}
               alt={miembro.nombre}
-              className="w-30 h-30 rounded-full mb-2 border-4 border-black shadow"
+              className="w-40 h-40 rounded-full mb-2 border-4 border-black shadow"
             />
             <span className="font-bold text-2xl">{miembro.nombre}</span>
           </a>
