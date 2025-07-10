@@ -17,7 +17,7 @@ export default function CardsContainer() {
   }, []);
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 p-6">
+    <div className="grid grid-cols-[repeat(auto-fill,_minmax(300px,_1fr))] gap-8 p-4 md:px-16">
       {meals?.map((meal) => (
         <Card
           key={meal.idMeal}
