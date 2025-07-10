@@ -56,7 +56,7 @@ export default function LandingP() {
           <img
             src="/ClickFoodBlanco.png"
             alt="ClickFood"
-            className="w-80 h-20 mx-auto"
+            className="w-90 h-20 mx-auto"
           />
           <h2 className="text-white mt-2">SATISFY YOUR CRAVINGS</h2>
         </div>
