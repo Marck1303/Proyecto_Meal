@@ -1,15 +1,16 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import React from "react";
-import Home from './pages/Home.jsx';
-import Detail from './pages/Detail.jsx';
-import CategoryMeals from './pages/CategoryMeals.jsx';
-import Categories from './pages/Categories.jsx';
-
+import Home from "./pages/Home.jsx";
+import Detail from "./pages/Detail.jsx";
+import CategoryMeals from "./pages/CategoryMeals.jsx";
+import Categories from "./pages/Categories.jsx";
+import LandingP from "./components/LandingP.jsx";
 
 function App() {
   return (
     <>
       <Routes>
+        <Route path="/" element={<LandingP />} />
         <Route path="/" element={<Home />} />
         <Route path="/detail/:id" element={<Detail />} />
         <Route path="/category" element={<Categories />} />
@@ -20,4 +21,3 @@ function App() {
 }
 
 export default App;
-
