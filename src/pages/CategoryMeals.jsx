@@ -1,8 +1,8 @@
 // Solo para pobrar utilice el mismo codigo de las card de alan
-import { useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import fetchMealData from '../hook/data';
-import Card from '../components/cards/card'; 
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import fetchMealData from "../hook/data";
+import Card from "../components/cards/card";
 
 export default function CategoryMeals() {
   const { categoryName } = useParams();
@@ -10,7 +10,7 @@ export default function CategoryMeals() {
 
   useEffect(() => {
     const loadMeals = async () => {
-      const data = await fetchMealData('filter.php', `c=${categoryName}`);
+      const data = await fetchMealData("filter.php", `c=${categoryName}`);
       setMeals(data);
     };
     loadMeals();
