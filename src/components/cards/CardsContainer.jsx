@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Card from "../Card";
 
-export default function CardsContainer() {
+export default function CardsContainer({ resultados }) {
   const [meals, setMeals] = useState([]);
 
   useEffect(() => {
@@ -18,15 +18,17 @@ export default function CardsContainer() {
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 p-6">
-      {meals?.map((meal) => (
-        <Card
-          key={meal.idMeal}
-          id={meal.idMeal}
-          name={meal.strMeal}
-          category={meal.strCategory}
-          image={meal.strMealThumb}
-        />
-      ))}
+      {(resultados && resultados.length > 0 ? resultados : meals)?.map(
+        (meal) => (
+          <Card
+            key={meal.idMeal}
+            id={meal.idMeal}
+            name={meal.strMeal}
+            category={meal.strCategory}
+            image={meal.strMealThumb}
+          />
+        )
+      )}
     </div>
   );
 }
