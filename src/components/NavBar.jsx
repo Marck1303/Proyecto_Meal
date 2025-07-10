@@ -12,7 +12,7 @@ export default function NavBar() {
         <div className="flex gap-2">
           {(path.startsWith("/category/") || path.startsWith("/detail/")) && (
             <button
-              onClick={() => navigate("/")}
+              onClick={() => navigate("/home")}
               className="bg-amber-600 text-white px-4 py-2 rounded hover:bg-amber-700"
             >
               Home
@@ -28,7 +28,7 @@ export default function NavBar() {
           )}
           {path === "/category" && (
             <button
-              onClick={() => navigate("/")}
+              onClick={() => navigate("/home")}
               className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600"
             >
               Back
@@ -38,7 +38,7 @@ export default function NavBar() {
 
         {/* Botones a la derecha */}
         <div className="flex gap-2">
-          {(path === "/" || path.startsWith("/detail/")) && (
+          {(path === "/home" || path.startsWith("/detail/")) && (
             <button
               onClick={() => navigate("/category")}
               className="bg-amber-600 text-white px-4 py-2 rounded hover:bg-amber-700"

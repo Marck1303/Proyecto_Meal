@@ -9,7 +9,7 @@ import NavBar from "./components/NavBar.jsx";
 
 function App() {
   const location = useLocation();
-  const hideNavOnPaths = ["/landing"]; // por si agregás otras vistas en el futuro
+  const hideNavOnPaths = ["/"]; // por si agregás otras vistas en el futuro
 
   const shouldShowNav = !hideNavOnPaths.includes(location.pathname);
 
