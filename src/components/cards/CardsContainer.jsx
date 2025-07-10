@@ -17,7 +17,7 @@ export default function CardsContainer({ resultados }) {
   }, []);
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 p-6">
+    <div className="grid grid-cols-[repeat(auto-fill,_minmax(300px,_1fr))] gap-8 p-4 md:px-16">
       {(resultados && resultados.length > 0 ? resultados : meals)?.map(
         (meal) => (
           <Card

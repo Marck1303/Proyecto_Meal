@@ -26,7 +26,7 @@ export default function Home() {
 
   return (
     <div>
-      <div className="bg-[#ffa300] min-h-screen flex flex-col justify-between border-b-3">
+      <div className="bg-orange-200 min-h-screen flex flex-col justify-between border-b-3">
         <SearchBar buscarFood={buscarFood} />
 
         {noEncontrado ? (
@@ -36,6 +36,9 @@ export default function Home() {
             </h1>
           </div>
         ) : (
+           <h1 className="text-3xl font-bold text-center p-6">
+            Todas las Comidas
+           </h1>
           <CardsContainer resultados={resultados} />
         )}
       </div>

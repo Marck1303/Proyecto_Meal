@@ -23,7 +23,10 @@ const RecetaDetalle = () => {
   }, []);
 
   if (loading) return <p className="text-center mt-10">Cargando receta...</p>;
-  if (!receta) return <p className="text-center mt-10 text-red-600">Receta no encontrada</p>;
+  if (!receta)
+    return (
+      <p className="text-center mt-10 text-red-600">Receta no encontrada</p>
+    );
 
   const obtenerIngredientes = () => {
     const ingredientes = [];
@@ -48,8 +51,18 @@ const RecetaDetalle = () => {
           className="hover:scale-110 transition-transform"
           title="Volver"
         >
-          <svg className="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+          <svg
+            className="w-6 h-6 text-gray-700"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M15 19l-7-7 7-7"
+            />
           </svg>
         </button>
         <button
@@ -57,8 +70,18 @@ const RecetaDetalle = () => {
           className="hover:scale-110 transition-transform"
           title="Inicio"
         >
-          <svg className="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M3 12l9-9 9 9M4 10v10h4v-6h8v6h4V10" />
+          <svg
+            className="w-6 h-6 text-gray-700"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M3 12l9-9 9 9M4 10v10h4v-6h8v6h4V10"
+            />
           </svg>
         </button>
       </div>
@@ -75,8 +98,12 @@ const RecetaDetalle = () => {
         {/* Ingredientes + Imagen */}
         <div className="flex flex-col md:flex-row gap-8 items-start">
           <div className="md:max-w-sm w-full">
-            <h1 className="text-3xl font-extrabold mb-4 text-gray-900">{receta.strMeal}</h1>
-            <h2 className="text-2xl font-semibold mb-4 text-gray-800">Ingredientes</h2>
+            <h1 className="text-3xl font-extrabold mb-4 text-gray-900">
+              {receta.strMeal}
+            </h1>
+            <h2 className="text-2xl font-semibold mb-4 text-gray-800">
+              Ingredientes
+            </h2>
             <div className="grid grid-cols-1 gap-3">
               {ingredientes.map(({ nombre, medida }, index) => (
                 <IngredienteItem
@@ -103,8 +130,12 @@ const RecetaDetalle = () => {
 
         {/* Preparación */}
         <div className="w-full text-center">
-          <h2 className="text-2xl font-semibold mt-6 mb-2 text-gray-800">Preparación</h2>
-          <p className="text-gray-700 whitespace-pre-line max-w-3xl mx-auto">{receta.strInstructions}</p>
+          <h2 className="text-2xl font-semibold mt-6 mb-2 text-gray-800">
+            Preparación
+          </h2>
+          <p className="text-gray-700 whitespace-pre-line max-w-3xl mx-auto">
+            {receta.strInstructions}
+          </p>
         </div>
       </div>
     </>
