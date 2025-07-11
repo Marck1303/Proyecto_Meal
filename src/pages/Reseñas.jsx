@@ -9,7 +9,11 @@ const Estrellas = ({ cantidad }) => (
     {[...Array(5)].map((_, i) => (
       <span
         key={i}
-        className={`mr-1 text-2xl ${i < cantidad ? "text-yellow-400" : "text-gray-300"}`}
+        className={`mr-1 text-2xl ${
+          i < cantidad
+            ? "text-yellow-400 dark:text-violet-600"
+            : "text-gray-300"
+        }`}
       >
         ★
       </span>
@@ -53,34 +57,38 @@ export default function Reseñas() {
   };
 
   return (
-    <div className="max-w-2xl mt-8 mx-auto px-4">
-      <h1 className="text-2xl font-bold mb-4">Reseñas</h1>
-      <button
-        onClick={() => setModalOpen(true)}
-        className="bg-amber-600 text-white hover:bg-amber-700 px-4 py-2 rounded mb-4"
-      >
-        Dejar una reseña
-      </button>
+    <div className="dark:bg-cyan-950 h-screen p-6">
+      <div className="max-w-2xl  mx-auto p-4 bg-white rounded-2xl">
+        <h1 className="text-2xl font-bold mb-4 dark:text-purple-700">
+          Reseñas
+        </h1>
+        <button
+          onClick={() => setModalOpen(true)}
+          className="bg-amber-600 text-white hover:bg-amber-700 px-4 py-2 rounded mb-4 dark:bg-violet-900 dark:hover:bg-violet-950 "
+        >
+          Dejar una reseña
+        </button>
 
-      {reseñas.map((r) => (
-        <div key={r.id} className="border p-2 mb-2 rounded">
-          <div className="font-semibold">{r.nombre}</div>
-          <div>{r.comentario}</div>
-          <Estrellas cantidad={r.estrellas} />
-        </div>
-      ))}
+        {reseñas.map((r) => (
+          <div key={r.id} className="border p-2 mb-2 rounded">
+            <div className="font-semibold">{r.nombre}</div>
+            <div>{r.comentario}</div>
+            <Estrellas cantidad={r.estrellas} />
+          </div>
+        ))}
 
-      {isModalOpen && (
-        <Modal onClose={() => setModalOpen(false)}>
-          <ModalContent
-            onAdd={(nueva) => {
-              agregarReseña(nueva);
-              setModalOpen(false);
-            }}
-            onClose={() => setModalOpen(false)}
-          />
-        </Modal>
-      )}
+        {isModalOpen && (
+          <Modal onClose={() => setModalOpen(false)}>
+            <ModalContent
+              onAdd={(nueva) => {
+                agregarReseña(nueva);
+                setModalOpen(false);
+              }}
+              onClose={() => setModalOpen(false)}
+            />
+          </Modal>
+        )}
+      </div>
     </div>
   );
 }
@@ -126,7 +134,9 @@ function ModalContent({ onAdd, onClose }) {
               onClick={() => setEstrellas(i + 1)}
               className="focus:outline-none mr-1 text-2xl"
             >
-              <span className={i < estrellas ? "text-yellow-400" : "text-gray-300"}>
+              <span
+                className={i < estrellas ? "text-yellow-400" : "text-gray-300"}
+              >
                 ★
               </span>
             </button>
