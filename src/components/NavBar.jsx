@@ -8,7 +8,16 @@ export default function NavBar() {
 
   return (
     <nav className="bg-neutral-900 border-2 border-black shadow-md p-4 flex justify-between items-center">
-      <img src="/LogoRed.png" alt="logored" className="size-15" />
+      <button
+        onClick={() => navigate("/")}
+        className="p-0 m-0 border-none bg-transparent"
+      >
+        <img
+          src="/buttonCF2.png"
+          alt="logoCF"
+          className="size-18 cursor-pointer ml-4"
+        />
+      </button>
       <div className="flex gap-2">
         <div className="flex gap-2">
           {(path.startsWith("/category/") || path.startsWith("/detail/") || path === "/reseñas") && (

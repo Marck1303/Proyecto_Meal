@@ -5,12 +5,12 @@ export default function FooterFood() {
     {
       nombre: "Marco Abraham Arias",
       url: "https://tusitio.com/marco",
-      img: "/Integrantes/marco.png",
+      img: "/Integrantes/Marco.jpg",
     },
     {
       nombre: "Alan Yoel Zalazar",
       url: "https://tusitio.com/alan",
-      img: "/Integrantes/alan.png",
+      img: "/Integrantes/Alan.png",
     },
     {
       nombre: "Steven Nuñez",
@@ -20,12 +20,12 @@ export default function FooterFood() {
         {
       nombre: "Luis Carlos Zegarra",
       url: "https://tusitio.com/luis",
-      img: "/Integrantes/luis.png",
+      img: "/Integrantes/Luis.png",
     },
     {
       nombre: "Edwin Dario Alzate",
       url: "https://alzate1075.github.io/funval-G3/",
-      img: "/Integrantes/edwin.jpg",
+      img: "/Integrantes/Edwin.jpg",
     },
   ];
 
