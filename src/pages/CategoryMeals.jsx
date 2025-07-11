@@ -36,14 +36,14 @@ export default function CategoryMeals() {
   };
 
   return (
-    <div className="p-6">
+    <div className="p-6 dark:bg-purple-950 h-full">
       <SearchBar buscarFood={buscarComidas} />
-      <h1 className="text-2xl font-bold mb-6 dark:text-cyan-500 text-center">
+      <h1 className="text-4xl pt-4 font-bold mb-6 dark:text-cyan-500 text-center">
         Comidas en {categoryName}
       </h1>
 
       {noEncontrado ? (
-        <div className="text-center text-4xl font-bold text-red-500 mt-10">
+        <div className="text-4xl pt-4 font-bold mb-6 dark:text-cyan-500 text-center">
           No se encontraron resultados.
         </div>
       ) : (
