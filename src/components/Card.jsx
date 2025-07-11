@@ -3,7 +3,7 @@ import React from "react";
 
 export default function Card({ id, name, category, image }) {
   return (
-    <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 p-4 border-2 border-amber-600">
+    <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg hover:scale-105 transition-all duration-300 p-4 border-2 border-amber-600">
       <h2 className="text-xl font-bold text-center p-2 border-t border-b mb-2">
         {name}
       </h2>
