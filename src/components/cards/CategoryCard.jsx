@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 export default function CategoryCard({ name, image }) {
   return (
-    <Link to={`/category/${name}`} className="bg-amber-800 relative rounded-lg overflow-hidden shadow-lg">
+    <Link to={`/category/${name}`} className="bg-amber-800 relative rounded-lg overflow-hidden shadow-lg hover:scale-105 transition-all duration-300">
       <div
         className="h-80 bg-cover bg-center"
         style={{ backgroundImage: `url(${image})` }}
