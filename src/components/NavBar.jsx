@@ -1,3 +1,4 @@
+// components/NavBar.jsx
 import { useLocation, useNavigate } from "react-router-dom";
 
 export default function NavBar() {
@@ -10,7 +11,7 @@ export default function NavBar() {
       <img src="/LogoRed.png" alt="logored" className="size-15" />
       <div className="flex gap-2">
         <div className="flex gap-2">
-          {(path.startsWith("/category/") || path.startsWith("/detail/")) && (
+          {(path.startsWith("/category/") || path.startsWith("/detail/") || path === "/reseñas") && (
             <button
               onClick={() => navigate("/home")}
               className="bg-amber-600 text-white px-4 py-2 rounded hover:bg-amber-700"
@@ -39,12 +40,20 @@ export default function NavBar() {
         {/* Botones a la derecha */}
         <div className="flex gap-2">
           {(path === "/home" || path.startsWith("/detail/")) && (
-            <button
-              onClick={() => navigate("/category")}
-              className="bg-amber-600 text-white px-4 py-2 rounded hover:bg-amber-700"
-            >
-              Categories
-            </button>
+            <>
+              <button
+                onClick={() => navigate("/category")}
+                className="bg-amber-600 text-white px-4 py-2 rounded hover:bg-amber-700"
+              >
+                Categories
+              </button>
+              <button
+                onClick={() => navigate("/reseñas")}
+                className="bg-amber-600 text-white px-4 py-2 rounded hover:bg-amber-700"
+              >
+                Reseñas
+              </button>
+            </>
           )}
           {path.startsWith("/detail/") && (
             <button

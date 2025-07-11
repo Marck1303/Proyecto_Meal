@@ -13,6 +13,11 @@ export default function FooterFood() {
       img: "/Integrantes/alan.png",
     },
     {
+      nombre: "Steven Nuñez",
+      url: "https://stevennunez.github.io/Funval-G3/",
+      img: "/Integrantes/steven.jpg",
+    },
+        {
       nombre: "Luis Carlos Zegarra",
       url: "https://tusitio.com/luis",
       img: "/Integrantes/luis.png",
