@@ -2,7 +2,7 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import fetchMealData from "../hook/data";
-import Card from "../components/Card";
+import Card from "../components/cards/Card";
 import SearchBar from "../components/SearchBar";
 
 export default function CategoryMeals() {
@@ -18,9 +18,11 @@ export default function CategoryMeals() {
   }, [categoryName]);
 
   return (
-    <div className="p-6">
+    <div className="p-6 dark:bg-purple-950">
       <SearchBar />
-      <h1 className="text-2xl font-bold mb-6">Comidas en {categoryName}</h1>
+      <h1 className="text-4xl pt-4 font-bold mb-6 dark:text-cyan-500 text-center">
+        Comidas en {categoryName}
+      </h1>
       <div className="grid grid-cols-[repeat(auto-fill,_minmax(300px,_1fr))] gap-8 p-4 md:px-16">
         {meals.map((meal) => (
           <Card
