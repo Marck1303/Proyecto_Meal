@@ -14,7 +14,6 @@ export default function NavBar() {
         <div className="flex gap-2">
           {!(path === "/" || path === "/pedido") && <CartButton />}
 
-          {/* Botón Home */}
           {(path.startsWith("/category/") || path.startsWith("/detail/")) && (
             <button
               onClick={() => navigate("/home")}
@@ -24,7 +23,6 @@ export default function NavBar() {
             </button>
           )}
 
-          {/* Botón Back en /category */}
           {path.startsWith("/category/") && (
             <button
               onClick={() => navigate("/category")}
@@ -34,7 +32,6 @@ export default function NavBar() {
             </button>
           )}
 
-          {/* Botón Back en /category */}
           {path === "/category" && (
             <button
               onClick={() => navigate("/home")}
@@ -44,7 +41,6 @@ export default function NavBar() {
             </button>
           )}
 
-          {/* Botón Back en /pedido */}
           {path === "/pedido" && from !== "/home" && (
             <button
               onClick={() => navigate("/home")}
@@ -72,8 +68,7 @@ export default function NavBar() {
           )}
         </div>
 
-        {/* Botones a la derecha */}
-        <div className="flex gap-2">
+        <div className="flex gap-2">  
           {(path === "/home" || path.startsWith("/detail/")) && (
             <>
               <button
@@ -98,6 +93,8 @@ export default function NavBar() {
               Back
             </button>
           )}
+        
+          
         </div>
       </div>
     </nav>

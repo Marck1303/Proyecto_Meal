@@ -4,7 +4,7 @@ export default function DarkMode() {
   const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
-    // Aplica tema guardado al cargar la página
+    //se aplica el dark al cargar
     const savedTheme = localStorage.getItem("theme");
     if (savedTheme === "dark") {
       document.body.classList.add("dark");
@@ -36,7 +36,7 @@ export default function DarkMode() {
         fill="none"
         onClick={toggleTheme}
       >
-        {/* Luna (visible en modo claro) */}
+        {/* Luna*/}
         <path
           className={`moon-icon ${isDark ? "hidden" : "block"}`}
           d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"
@@ -44,7 +44,7 @@ export default function DarkMode() {
           stroke="#7d20e4"
         />
 
-        {/* Sol (visible en modo oscuro) */}
+        {/* Sol*/}
         <g
           className={`sun-icon ${isDark ? "block" : "hidden"}`}
           stroke="#f97316"
