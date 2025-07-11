@@ -9,7 +9,7 @@ export default function NavBar() {
 
   return (
     <nav className="sticky top-0 z-40 w-full bg-neutral-900 border-2 border-black shadow-md p-4 flex justify-between items-center dark:bg-[rgb(32,17,43)]">
-      <img src="/LogoRed.png" alt="logored" className="size-15" />
+      <img src="/buttonCF2.png" alt="logored" className="size-15" />
       <div className="flex gap-2">
         <div className="flex gap-2">
           {!(path === "/" || path === "/pedido") && <CartButton />}
