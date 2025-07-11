@@ -36,7 +36,6 @@ export default function Categories() {
   };
   const navigate = useNavigate();
 
-
   return (
     <div>
       {/* Botones superiores (igual que Detail.jsx) */}
@@ -81,10 +80,10 @@ export default function Categories() {
         </button>
       </div>
 
-      <div className="bg-orange-200 min-h-screen flex flex-col justify-between border-b-3">
+      <div className="bg-orange-200 min-h-screen flex flex-col justify-between border-b-3 dark:bg-violet-950">
         <SearchBar buscarFood={buscarCategorias} />
 
-        <h1 className="text-3xl font-bold text-center p-6">
+        <h1 className="text-5xl font-bold text-center p-6 dark:text-purple-500">
           Explorar Categorías
         </h1>
 

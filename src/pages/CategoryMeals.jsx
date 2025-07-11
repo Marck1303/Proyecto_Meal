@@ -38,7 +38,9 @@ export default function CategoryMeals() {
   return (
     <div className="p-6">
       <SearchBar buscarFood={buscarComidas} />
-      <h1 className="text-2xl font-bold mb-6">Comidas en {categoryName}</h1>
+      <h1 className="text-2xl font-bold mb-6 dark:text-cyan-500 text-center">
+        Comidas en {categoryName}
+      </h1>
 
       {noEncontrado ? (
         <div className="text-center text-4xl font-bold text-red-500 mt-10">
