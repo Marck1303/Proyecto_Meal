@@ -1,186 +1,152 @@
-// src/pages/Reseñas.jsx
-import { useState,} from "react";
-import { useNavigate } from "react-router-dom";
-import VideoModal from "../components/recetas/VideoModal"; // Reutilizamos el modal como base
+import { useState, useEffect } from "react";
 import reseñasEjemplo from "../hook/reseñas"; // Importamos el array de reseñas
 
-// Componente para mostrar las estrellas
-const Estrellas = ({ cantidad }) => {
+const STORAGE_KEY = "reseñas";
+
+// Componente para mostrar las estrellas fijas (no interactivo)
+const Estrellas = ({ cantidad }) => (
+  <div className="flex">
+    {[...Array(5)].map((_, i) => (
+      <span
+        key={i}
+        className={`mr-1 text-2xl ${i < cantidad ? "text-yellow-400" : "text-gray-300"}`}
+      >
+        ★
+      </span>
+    ))}
+  </div>
+);
+
+// Modal genérico
+function Modal({ children, onClose }) {
   return (
-    <div className="flex gap-1">
-      {[...Array(5)].map((_, index) => (
-        <svg
-          key={index}
-          className={`w-5 h-5 ${index < cantidad ? "text-yellow-400" : "text-gray-300"}`}
-          fill="currentColor"
-          viewBox="0 0 20 20"
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div className="relative bg-white rounded shadow-lg max-w-lg w-full mx-4">
+        <button
+          onClick={onClose}
+          className="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-2xl leading-none"
         >
-          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.97a1 1 0 00.95.69h4.15c.969 0 1.371 1.24.588 1.81l-3.357 2.44a1 1 0 00-.364 1.118l1.287 3.97c.3.921-.755 1.688-1.54 1.118l-3.357-2.44a1 1 0 00-1.175 0l-3.357 2.44c-.784.57-1.84-.197-1.54-1.118l1.287-3.97a1 1 0 00-.364-1.118L2.27 9.397c-.784-.57-.38-1.81.588-1.81h4.15a1 1 0 00.95-.69l1.286-3.97z" />
-        </svg>
-      ))}
+          ×
+        </button>
+        {children}
+      </div>
     </div>
   );
-};
+}
 
-// Modal para dejar reseñas
-const ReseñaModal = ({ onClose }) => {
+export default function Reseñas() {
+  const [reseñas, setReseñas] = useState([]);
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  // Cargar reseñas de localStorage o ejemplo
+  useEffect(() => {
+    const data = localStorage.getItem(STORAGE_KEY);
+    if (data) setReseñas(JSON.parse(data));
+    else setReseñas(reseñasEjemplo);
+  }, []);
+
+  // Agregar y guardar en localStorage (nuevas reseñas al inicio)
+  const agregarReseña = (nueva) => {
+    const lista = [nueva, ...reseñas];
+    setReseñas(lista);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(lista));
+  };
+
+  return (
+    <div className="max-w-2xl mt-8 mx-auto px-4">
+      <h1 className="text-2xl font-bold mb-4">Reseñas</h1>
+      <button
+        onClick={() => setModalOpen(true)}
+        className="bg-amber-600 text-white hover:bg-amber-700 px-4 py-2 rounded mb-4"
+      >
+        Dejar una reseña
+      </button>
+
+      {reseñas.map((r) => (
+        <div key={r.id} className="border p-2 mb-2 rounded">
+          <div className="font-semibold">{r.nombre}</div>
+          <div>{r.comentario}</div>
+          <Estrellas cantidad={r.estrellas} />
+        </div>
+      ))}
+
+      {isModalOpen && (
+        <Modal onClose={() => setModalOpen(false)}>
+          <ModalContent
+            onAdd={(nueva) => {
+              agregarReseña(nueva);
+              setModalOpen(false);
+            }}
+            onClose={() => setModalOpen(false)}
+          />
+        </Modal>
+      )}
+    </div>
+  );
+}
+
+// Contenido del modal para agregar reseñas
+function ModalContent({ onAdd, onClose }) {
   const [nombre, setNombre] = useState("");
   const [comentario, setComentario] = useState("");
   const [estrellas, setEstrellas] = useState(0);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Aquí iría la lógica para guardar la reseña (puede ser un console.log por ahora)
-    console.log("Nueva reseña:", { nombre, comentario, estrellas });
-    onClose();
+  const handleEnviar = () => {
+    if (!nombre || !comentario || estrellas === 0) return;
+    const nueva = { id: Date.now(), nombre, comentario, estrellas };
+    onAdd(nueva);
   };
 
   return (
-    <div
-      id="reseña-modal-fondo"
-      onClick={(e) => e.target.id === "reseña-modal-fondo" && onClose()}
-      className="fixed inset-0 bg-transparent bg-opacity-80 z-50 flex items-center justify-center"
-    >
-      <div className="bg-white p-6 rounded-lg w-full max-w-md">
-        <h2 className="text-2xl font-bold mb-4">Dejar una reseña</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label className="block text-gray-700 font-medium mb-2">Nombre</label>
-            <input
-              type="text"
-              value={nombre}
-              onChange={(e) => setNombre(e.target.value)}
-              className="w-full border border-gray-300 rounded p-2"
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block text-gray-700 font-medium mb-2">Comentario</label>
-            <textarea
-              value={comentario}
-              onChange={(e) => setComentario(e.target.value)}
-              className="w-full border border-gray-300 rounded p-2"
-              rows="4"
-              required
-            ></textarea>
-          </div>
-          <div className="mb-4">
-            <label className="block text-gray-700 font-medium mb-2">Calificación</label>
-            <div className="flex gap-1">
-              {[1, 2, 3, 4, 5].map((num) => (
-                <button
-                  key={num}
-                  type="button"
-                  onClick={() => setEstrellas(num)}
-                  className={`w-8 h-8 flex items-center justify-center ${
-                    num <= estrellas ? "text-yellow-400" : "text-gray-300"
-                  }`}
-                >
-                  <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.97a1 1 0 00.95.69h4.15c.969 0 1.371 1.24.588 1.81l-3.357 2.44a1 1 0 00-.364 1.118l1.287 3.97c.3.921-.755 1.688-1.54 1.118l-3.357-2.44a1 1 0 00-1.175 0l-3.357 2.44c-.784.57-1.84-.197-1.54-1.118l1.287-3.97a1 1 0 00-.364-1.118L2.27 9.397c-.784-.57-.38-1.81.588-1.81h4.15a1 1 0 00.95-.69l1.286-3.97z" />
-                  </svg>
-                </button>
-              ))}
-            </div>
-          </div>
-          <div className="flex gap-4">
+    <div className="bg-white p-6 rounded-lg">
+      <h2 className="text-xl font-bold mb-4">Dejar una reseña</h2>
+      <label className="block mb-4">
+        Nombre
+        <input
+          type="text"
+          value={nombre}
+          onChange={(e) => setNombre(e.target.value)}
+          className="w-full border rounded px-2 py-1 mt-1"
+        />
+      </label>
+      <label className="block mb-4">
+        Comentario
+        <textarea
+          value={comentario}
+          onChange={(e) => setComentario(e.target.value)}
+          className="w-full border rounded px-2 py-1 mt-1"
+        />
+      </label>
+      <div className="mb-4">
+        <div>Calificación</div>
+        <div className="flex mt-1">
+          {[...Array(5)].map((_, i) => (
             <button
-              type="submit"
-              className="bg-amber-600 text-white px-4 py-2 rounded hover:bg-amber-700"
+              key={i}
+              onClick={() => setEstrellas(i + 1)}
+              className="focus:outline-none mr-1 text-2xl"
             >
-              Enviar
+              <span className={i < estrellas ? "text-yellow-400" : "text-gray-300"}>
+                ★
+              </span>
             </button>
-            <button
-              type="button"
-              onClick={onClose}
-              className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600"
-            >
-              Cancelar
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-  );
-};
-
-export default function Reseñas() {
-  const navigate = useNavigate();
-  const [mostrarModal, setMostrarModal] = useState(false);
-
-  return (
-    <>
-      {/* Botones superiores (igual que Detail.jsx) */}
-      <div className="bg-orange-200 p-4 flex gap-4 items-center">
-        <button
-          onClick={() => navigate(-1)}
-          className="hover:scale-110 transition-transform"
-          title="Volver"
-        >
-          <svg
-            className="w-6 h-6 text-gray-700"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M15 19l-7-7 7-7"
-            />
-          </svg>
-        </button>
-        <button
-          onClick={() => navigate("/")}
-          className="hover:scale-110 transition-transform"
-          title="Inicio"
-        >
-          <svg
-            className="w-6 h-6 text-gray-700"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M3 12l9-9 9 9M4 10v10h4v-6h8v6h4V10"
-            />
-          </svg>
-        </button>
-      </div>
-
-      {/* Modal para nuevas reseñas */}
-      {mostrarModal && <ReseñaModal onClose={() => setMostrarModal(false)} />}
-
-      {/* Contenido principal */}
-      <div className="container mx-auto px-4 md:px-32 py-6 bg-orange-200 min-h-screen">
-        <h1 className="text-3xl font-bold text-center mb-6">Reseñas</h1>
-        <div className="text-center mb-8">
-          <button
-            onClick={() => setMostrarModal(true)}
-            className="bg-amber-600 text-white px-6 py-3 rounded-full hover:bg-amber-700 font-semibold"
-          >
-            Dejar reseñas
-          </button>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {reseñasEjemplo.map((reseña) => (
-            <div
-              key={reseña.id}
-              className="bg-white p-4 rounded-lg shadow-md border border-amber-600"
-            >
-              <div className="flex justify-between items-center mb-2">
-                <h3 className="text-lg font-semibold">{reseña.nombre}</h3>
-                <Estrellas cantidad={reseña.estrellas} />
-              </div>
-              <p className="text-gray-700">{reseña.comentario}</p>
-            </div>
           ))}
         </div>
       </div>
-    </>
+      <div className="flex justify-end">
+        <button
+          onClick={handleEnviar}
+          className="bg-orange-500 text-white px-4 py-2 rounded mr-2"
+        >
+          Enviar
+        </button>
+        <button
+          onClick={onClose}
+          className="bg-gray-500 text-white px-4 py-2 rounded"
+        >
+          Cancelar
+        </button>
+      </div>
+    </div>
   );
 }
