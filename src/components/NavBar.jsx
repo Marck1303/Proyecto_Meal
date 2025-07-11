@@ -13,7 +13,7 @@ export default function NavBar() {
       >
         <img
           src="/buttonCF2.png"
-          alt="logored"
+          alt="logoCF"
           className="size-18 cursor-pointer ml-4"
         />
       </button>
