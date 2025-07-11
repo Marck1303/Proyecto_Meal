@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import fetchMealData from "../hook/data";
-import Card from "../components/Card";
+import Card from "../components/cards/Card";
 import SearchBar from "../components/SearchBar";
 
 export default function CategoryMeals() {

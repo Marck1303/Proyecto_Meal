@@ -7,6 +7,7 @@ import Categories from "./pages/Categories.jsx";
 import Reseñas from "./pages/Reseñas.jsx"; // Importar el nuevo componente
 import LandingP from "./components/LandingP.jsx";
 import NavBar from "./components/NavBar.jsx";
+import Pedido from "./pages/Pedido.jsx";
 
 function App() {
   const location = useLocation();
@@ -24,6 +25,7 @@ function App() {
         <Route path="/category" element={<Categories />} />
         <Route path="/category/:categoryName" element={<CategoryMeals />} />
         <Route path="/reseñas" element={<Reseñas />} /> {/* Nueva ruta */}
+        <Route path="/pedido" element={<Pedido />} />
       </Routes>
     </>
   );
