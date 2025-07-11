@@ -22,10 +22,15 @@ const RecetaDetalle = () => {
     return () => window.removeEventListener("resize", detectarDispositivo);
   }, []);
 
-  if (loading) return <p className="text-center mt-10">Cargando receta...</p>;
+  if (loading)
+    return (
+      <p className="text-center mt-10 dark:bg-cyan-950">Cargando receta...</p>
+    );
   if (!receta)
     return (
-      <p className="text-center mt-10 text-red-600">Receta no encontrada</p>
+      <p className="text-center mt-10 text-red-600 dark:bg-cyan-950">
+        Receta no encontrada
+      </p>
     );
 
   const obtenerIngredientes = () => {
@@ -43,7 +48,7 @@ const RecetaDetalle = () => {
   const ingredientes = obtenerIngredientes();
 
   return (
-    <>
+    <div className=" dark:bg-cyan-950">
       {/* Botones superiores */}
       <div className="p-4 flex gap-4 items-center">
         <button
@@ -98,10 +103,10 @@ const RecetaDetalle = () => {
         {/* Ingredientes + Imagen */}
         <div className="flex flex-col md:flex-row gap-8 items-start">
           <div className="md:max-w-sm w-full">
-            <h1 className="text-3xl font-extrabold mb-4 text-gray-900">
+            <h1 className="text-3xl font-extrabold mb-4 text-gray-900 dark:text-purple-700">
               {receta.strMeal}
             </h1>
-            <h2 className="text-2xl font-semibold mb-4 text-gray-800">
+            <h2 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-violet-700">
               Ingredientes
             </h2>
             <div className="grid grid-cols-1 gap-3">
@@ -130,15 +135,15 @@ const RecetaDetalle = () => {
 
         {/* Preparación */}
         <div className="w-full text-center">
-          <h2 className="text-2xl font-semibold mt-6 mb-2 text-gray-800">
+          <h2 className="text-2xl font-semibold mt-6 mb-2 text-gray-800 dark:text-cyan-500">
             Preparación
           </h2>
-          <p className="text-gray-700 whitespace-pre-line max-w-3xl mx-auto">
+          <p className="text-gray-700 whitespace-pre-line max-w-3xl mx-auto dark:text-gray-300">
             {receta.strInstructions}
           </p>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
