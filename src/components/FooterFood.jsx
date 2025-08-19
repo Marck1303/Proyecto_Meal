@@ -20,7 +20,7 @@ export default function FooterFood() {
     {
       nombre: "Luis Carlos Zegarra",
       url: "https://tusitio.com/luis",
-      img: "/Integrantes/Luis.png",
+      img: "/Integrantes/luis.png",
     },
     {
       nombre: "Edwin Dario Alzate",
